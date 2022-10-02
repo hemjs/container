@@ -1,0 +1,44 @@
+# dependencies
+/node_modules
+
+# source
+src
+tests
+index.ts
+package-lock.json
+yarn.lock
+
+# IDE
+/.idea
+/.awcache
+/.vscode
+
+# tests
+/coverage
+/.nyc_output
+
+# github
+.github
+CONTRIBUTING.md
+
+# misc
+npm-debug.log
+.DS_Store
+
+# ci
+scripts
+.circleci
+
+
+# config
+.husky
+.commitlintrc.json
+.eslintignore
+.eslintrc.js
+.prettierignore
+.prettierrc
+.release-it.json
+jest.config.json
+renovate.json
+tsconfig.json
+
