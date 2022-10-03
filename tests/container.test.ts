@@ -309,4 +309,74 @@ describe('Container', () => {
       expect(error.message).toContain('Broken Engine');
     }
   });
+
+  it('should add a single value provider', () => {
+    const container = createContainer([]);
+    container.addProvider({ provide: String.name, useValue: 'Hello' });
+
+    expect(container.get(String.name)).toEqual('Hello');
+  });
+
+  it('should add a single class provider', () => {
+    const container = createContainer([]);
+    container.addProvider({ provide: Engine.name, useClass: TurboEngine });
+    const engine: Engine = container.get(Engine.name);
+
+    expect(engine instanceof TurboEngine).toBe(true);
+  });
+
+  it('should add a single factory provider', () => {
+    const container = createContainer([]);
+    container.addProvider({
+      provide: Engine.name,
+      useClass: Engine,
+    });
+    container.addProvider({
+      provide: Car.name,
+      useFactory: (container: IContainer) =>
+        new SportsCar(container.get(Engine.name)),
+    });
+    const car: Car = container.get(Car.name);
+
+    expect(car instanceof SportsCar).toBe(true);
+  });
+
+  it('should add a single alias provider', () => {
+    const container = createContainer([]);
+    container.addProvider({
+      provide: TurboEngine.name,
+      useClass: TurboEngine,
+    });
+    container.addProvider({
+      provide: Engine.name,
+      useExisting: TurboEngine.name,
+    });
+
+    expect(container.get(Engine.name)).toBe(container.get(TurboEngine.name));
+  });
+
+  it('should throw when given invalid single provider', () => {
+    expect(() => createContainer([]).addProvider(<any>'blah')).toThrowError(
+      'An invalid provider definition has been detected; only instances of Provider are allowed, got: [blah].',
+    );
+  });
+
+  it('should throw when single provider cyclic aliases detetected', () => {
+    try {
+      const container = createContainer([]);
+      container.addProvider({
+        provide: TurboEngine.name,
+        useClass: TurboEngine,
+      });
+      container.addProvider({
+        provide: TurboEngine.name,
+        useExisting: Engine.name,
+      });
+    } catch (error: any) {
+      console.log(error.message);
+      expect(error.message).toBe(
+        'A cycle has been detected within the aliases definitions:\n Engine -> TurboEngine -> Engine\n',
+      );
+    }
+  });
 });
