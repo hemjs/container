@@ -10,8 +10,8 @@ import type {
   ValueProvider,
 } from '@hemjs/types/container';
 import { isFunction, isUndefined } from '@hemjs/util';
-import { InvalidClassTypeException } from './exception/invalid-class-type.exception';
 import { InvalidClassException } from './exception/invalid-class.exception';
+import { InvalidConstructorException } from './exception/invalid-constructor.exception';
 import { InvalidProviderException } from './exception/invalid-provider.exception';
 
 class Container implements IContainer {
@@ -222,7 +222,7 @@ class Container implements IContainer {
    * @param type the type to convert
    * @returns the factory used to create the instance that should be injected
    * @throws InvalidClassException if type not constructable
-   * @throws InvalidClassTypeException if type not defult constructor
+   * @throws InvalidConstructorException if type not defult constructor
    */
   private classToFactory(type: NoArgument): () => any {
     if (!this.isNewable(type)) {
@@ -230,7 +230,7 @@ class Container implements IContainer {
     }
     const paramLength = type.length;
     if (paramLength > 0) {
-      throw new InvalidClassTypeException(type);
+      throw new InvalidConstructorException(type);
     }
     return () => new (type as NoArgument<any>)();
   }

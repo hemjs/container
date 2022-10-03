@@ -3,7 +3,7 @@ export const INVALID_CLASS_MESSAGE = (
   name: string,
 ) => `Unable to instantiate class (${name} is not constructable).`;
 
-export const INVALID_CLASS_TYPE_MESSAGE = (
+export const INVALID_CONSTRUCTOR_MESSAGE = (
   text: TemplateStringsArray,
   name: string,
 ) =>
