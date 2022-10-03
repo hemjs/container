@@ -13,6 +13,7 @@ import { isFunction, isUndefined } from '@hemjs/util';
 import { InvalidClassException } from './exception/invalid-class.exception';
 import { InvalidConstructorException } from './exception/invalid-constructor.exception';
 import { InvalidProviderException } from './exception/invalid-provider.exception';
+import { ProviderNotFoundException } from './exception/provider-not-found.exception';
 
 class Container implements IContainer {
   private readonly services = new Map<ProviderToken, any>();
@@ -150,7 +151,7 @@ class Container implements IContainer {
       const factory = this.getFactory(token);
       object = factory(this);
     } catch (error: any) {
-      throw new Error(`Error creating service: ${error.message}`);
+      throw new Error(error.message);
     }
     return object;
   }
@@ -164,7 +165,7 @@ class Container implements IContainer {
   private getFactory(token: ProviderToken): Factory {
     const factory = this.factories.get(token) ?? null;
     if (factory === null) {
-      throw new Error('Unable to resolve service');
+      throw new ProviderNotFoundException(token);
     }
     if (isFunction(factory)) {
       return factory;

@@ -14,3 +14,9 @@ export const INVALID_PROVIDER_MESSAGE = (
   detail: string,
 ) =>
   `An invalid provider definition has been detected; only instances of Provider are allowed, got: [${detail}].`;
+
+export const PROVIDER_NOT_FOUND_MESSAGE = (
+  text: TemplateStringsArray,
+  token: string,
+) =>
+  `No provider for "${token}" was found; are you certain you provided it during configuration?`;

@@ -221,7 +221,7 @@ describe('Container', () => {
     ]);
 
     expect(() => container.get(CarWithDashboard.name)).toThrowError(
-      'Unable to resolve service',
+      'No provider for "DashboardSoftware" was found; are you certain you provided it during configuration?',
     );
   });
 
