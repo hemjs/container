@@ -227,10 +227,10 @@ describe('Container', () => {
 
   it('should throw when invalid provider definition', () => {
     try {
-      createContainer(<any>[{ provide: Engine.name }]);
+      createContainer(<any>[<any>'blah']);
     } catch (error: any) {
       expect(error.message).toBe(
-        'An invalid provider definition has been detected; only instances of Provider are allowed, got: [{"provide":"Engine"}].',
+        'An invalid provider definition has been detected; only instances of Provider are allowed, got: [blah].',
       );
     }
   });
@@ -268,6 +268,14 @@ describe('Container', () => {
         'A cycle has been detected within the aliases definitions:\n Engine -> TurboEngine -> Engine\n',
       );
     }
+  });
+
+  it('should throw when no provider defined', () => {
+    const container = createContainer([]);
+
+    expect(() => container.get('NonExisting')).toThrowError(
+      'Service for "NonExisting" could not be created. Reason: No provider for "NonExisting" was found; are you certain you provided it during configuration?',
+    );
   });
 
   it('should return true when provider exist', () => {

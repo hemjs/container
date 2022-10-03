@@ -15,6 +15,7 @@ import { InvalidClassException } from './exception/invalid-class.exception';
 import { InvalidConstructorException } from './exception/invalid-constructor.exception';
 import { InvalidProviderException } from './exception/invalid-provider.exception';
 import { ProviderNotFoundException } from './exception/provider-not-found.exception';
+import { ServiceNotCreatedException } from './exception/service-not-created.exception';
 
 class Container implements IContainer {
   private readonly services = new Map<ProviderToken, any>();
@@ -152,7 +153,7 @@ class Container implements IContainer {
       const factory = this.getFactory(token);
       object = factory(this);
     } catch (error: any) {
-      throw new Error(error.message);
+      throw new ServiceNotCreatedException(token, error.message);
     }
     return object;
   }

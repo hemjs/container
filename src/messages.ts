@@ -1,3 +1,5 @@
+import { isSymbol } from '@hemjs/util';
+
 export const INVALID_CLASS_MESSAGE = (
   text: TemplateStringsArray,
   name: string,
@@ -25,3 +27,11 @@ export const CYCLIC_ALIAS_MESSAGE = (
   text: TemplateStringsArray,
   cycle: string,
 ) => `A cycle has been detected within the aliases definitions:\n ${cycle}`;
+
+export const SERVICE_NOT_CREATED_MESSAGE = (
+  token: string | symbol = 'item',
+  message: string,
+) => {
+  token = isSymbol(token) ? token.toString() : token;
+  return `Service for "${token}" could not be created. Reason: ${message}`;
+};
