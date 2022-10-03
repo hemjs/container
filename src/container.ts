@@ -10,6 +10,7 @@ import type {
   ValueProvider,
 } from '@hemjs/types/container';
 import { isFunction, isUndefined } from '@hemjs/util';
+import { CyclicAliasException } from './exception/cyclic-alias.exception';
 import { InvalidClassException } from './exception/invalid-class.exception';
 import { InvalidConstructorException } from './exception/invalid-constructor.exception';
 import { InvalidProviderException } from './exception/invalid-provider.exception';
@@ -174,7 +175,7 @@ class Container implements IContainer {
   }
 
   /**
-   * Map aliases to targer services en masse for optimal performance.
+   * Map aliases to target services in a group for optimal performance.
    *
    * This method maps this.aliases in place.
    *
@@ -183,6 +184,8 @@ class Container implements IContainer {
    * connected components (i.e. cycles in this case), we throw.
    * If nodes are not strongly connected (i.e. resolvable in
    * this case), they get resolved.
+   *
+   * @throws CyclicAliasException if a cycle is detected
    */
   private mapAliasesToTargets(): void {
     const tagged = new Map<any, any>();
@@ -193,7 +196,7 @@ class Container implements IContainer {
       let tCursor = this.aliases.get(alias);
       let aCursor = alias;
       if (aCursor === tCursor) {
-        throw new Error('A cycle has been detected');
+        throw new CyclicAliasException(alias, this.aliases);
       }
       if (!this.aliases.has(tCursor)) {
         continue;
@@ -202,7 +205,7 @@ class Container implements IContainer {
       while (this.aliases.has(tCursor)) {
         stack.push(aCursor);
         if (aCursor === this.aliases.get(tCursor)) {
-          throw new Error('A cycle has been detected');
+          throw new CyclicAliasException(alias, this.aliases);
         }
         aCursor = tCursor;
         tCursor = this.aliases.get(tCursor);
@@ -210,7 +213,7 @@ class Container implements IContainer {
       tagged.set(aCursor, true);
       for (const alias of stack) {
         if (alias === tCursor) {
-          throw new Error('A cycle has been detected');
+          throw new CyclicAliasException(alias, this.aliases);
         }
         this.aliases.set(alias, tCursor);
         tagged.set(alias, true);

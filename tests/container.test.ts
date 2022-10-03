@@ -258,12 +258,15 @@ describe('Container', () => {
   it('should throw when cyclic aliases detetected', () => {
     try {
       createContainer([
-        { provide: Engine.name, useClass: Engine },
-        { provide: Engine.name, useClass: TurboEngine },
-        { provide: TurboEngine.name, useExisting: TurboEngine },
+        { provide: TurboEngine.name, useClass: TurboEngine },
+        { provide: Engine.name, useExisting: TurboEngine.name },
+        { provide: TurboEngine.name, useExisting: Engine.name },
       ]);
     } catch (error: any) {
-      expect(error.message).toBe('A cycle has been detected');
+      console.log(error.message);
+      expect(error.message).toBe(
+        'A cycle has been detected within the aliases definitions:\n Engine -> TurboEngine -> Engine\n',
+      );
     }
   });
 

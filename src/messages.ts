@@ -20,3 +20,8 @@ export const PROVIDER_NOT_FOUND_MESSAGE = (
   token: string,
 ) =>
   `No provider for "${token}" was found; are you certain you provided it during configuration?`;
+
+export const CYCLIC_ALIAS_MESSAGE = (
+  text: TemplateStringsArray,
+  cycle: string,
+) => `A cycle has been detected within the aliases definitions:\n ${cycle}`;
