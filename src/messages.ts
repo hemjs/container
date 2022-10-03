@@ -8,3 +8,9 @@ export const INVALID_CLASS_TYPE_MESSAGE = (
   name: string,
 ) =>
   `An invalid class, "${name}", was provided; expected a defult (no-argument) constructor.`;
+
+export const INVALID_PROVIDER_MESSAGE = (
+  text: TemplateStringsArray,
+  detail: string,
+) =>
+  `An invalid provider definition has been detected; only instances of Provider are allowed, got: [${detail}].`;

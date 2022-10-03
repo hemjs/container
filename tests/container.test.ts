@@ -225,6 +225,16 @@ describe('Container', () => {
     );
   });
 
+  it('should throw when invalid provider definition', () => {
+    try {
+      createContainer(<any>[{ provide: Engine.name }]);
+    } catch (error: any) {
+      expect(error.message).toBe(
+        'An invalid provider definition has been detected; only instances of Provider are allowed, got: [{"provide":"Engine"}].',
+      );
+    }
+  });
+
   it('should throw when invalid class', () => {
     try {
       createContainer([{ provide: Engine.name, useClass: <any>Engine.name }]);

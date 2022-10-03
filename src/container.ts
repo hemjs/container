@@ -12,6 +12,7 @@ import type {
 import { isFunction, isUndefined } from '@hemjs/util';
 import { InvalidClassTypeException } from './exception/invalid-class-type.exception';
 import { InvalidClassException } from './exception/invalid-class.exception';
+import { InvalidProviderException } from './exception/invalid-provider.exception';
 
 class Container implements IContainer {
   private readonly services = new Map<ProviderToken, any>();
@@ -31,7 +32,7 @@ class Container implements IContainer {
    * Initialize the given container.
    * @param providers the providers to initialize
    * @returns the initialized container instance
-   * @throws TypeError if an invalid provider definition
+   * @throws InvalidProviderException if an invalid provider definition
    */
   public init(providers: Provider[]): Container {
     let newAliases = false;
@@ -47,7 +48,7 @@ class Container implements IContainer {
         this.aliases.set(provider.provide, provider.useExisting);
         newAliases = true;
       } else {
-        throw new TypeError('Invalid provider definition');
+        throw new InvalidProviderException(provider);
       }
     }
     if (newAliases) {
@@ -220,7 +221,8 @@ class Container implements IContainer {
    * Convert a type to a factory function - expect a defult (no-argument) constructor.
    * @param type the type to convert
    * @returns the factory used to create the instance that should be injected
-   * @throws TypeError if type not valid
+   * @throws InvalidClassException if type not constructable
+   * @throws InvalidClassTypeException if type not defult constructor
    */
   private classToFactory(type: NoArgument): () => any {
     if (!this.isNewable(type)) {
