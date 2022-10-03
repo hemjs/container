@@ -3,10 +3,6 @@ export function stringify(token: any): string {
     return token;
   }
 
-  if (Array.isArray(token)) {
-    return '[' + token.map(stringify).join(', ') + ']';
-  }
-
   if (token == null) {
     return '' + token;
   }

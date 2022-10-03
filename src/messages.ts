@@ -29,7 +29,7 @@ export const CYCLIC_ALIAS_MESSAGE = (
 ) => `A cycle has been detected within the aliases definitions:\n ${cycle}`;
 
 export const SERVICE_NOT_CREATED_MESSAGE = (
-  token: string | symbol = 'item',
+  token: string | symbol,
   message: string,
 ) => {
   token = isSymbol(token) ? token.toString() : token;
