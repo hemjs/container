@@ -10,6 +10,8 @@ import type {
   ValueProvider,
 } from '@hemjs/types/container';
 import { isFunction, isUndefined } from '@hemjs/util';
+import { InvalidClassTypeException } from './exception/invalid-class-type.exception';
+import { InvalidClassException } from './exception/invalid-class.exception';
 
 class Container implements IContainer {
   private readonly services = new Map<ProviderToken, any>();
@@ -222,11 +224,11 @@ class Container implements IContainer {
    */
   private classToFactory(type: NoArgument): () => any {
     if (!this.isNewable(type)) {
-      throw new TypeError('Unable to instantiate class');
+      throw new InvalidClassException(type);
     }
     const paramLength = type.length;
     if (paramLength > 0) {
-      throw new TypeError('An invalid class type detected');
+      throw new InvalidClassTypeException(type);
     }
     return () => new (type as NoArgument<any>)();
   }

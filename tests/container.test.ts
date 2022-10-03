@@ -225,6 +225,26 @@ describe('Container', () => {
     );
   });
 
+  it('should throw when invalid class', () => {
+    try {
+      createContainer([{ provide: Engine.name, useClass: <any>Engine.name }]);
+    } catch (error: any) {
+      expect(error.message).toBe(
+        'Unable to instantiate class (Engine is not constructable).',
+      );
+    }
+  });
+
+  it('should throw when invalid class type', () => {
+    try {
+      createContainer([{ provide: Car.name, useClass: <any>Car }]);
+    } catch (error: any) {
+      expect(error.message).toBe(
+        'An invalid class, "Car", was provided; expected a defult (no-argument) constructor.',
+      );
+    }
+  });
+
   it('should throw when cyclic aliases detetected', () => {
     try {
       createContainer([
