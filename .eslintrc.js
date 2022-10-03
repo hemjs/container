@@ -28,6 +28,7 @@ module.exports = {
       files: ['**/*.test.ts'],
       rules: {
         '@typescript-eslint/no-empty-function': 'off',
+        '@typescript-eslint/no-unused-vars': ['warn', { args: 'none' }],
       },
     },
   ],
