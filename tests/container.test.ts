@@ -263,7 +263,6 @@ describe('Container', () => {
         { provide: TurboEngine.name, useExisting: Engine.name },
       ]);
     } catch (error: any) {
-      console.log(error.message);
       expect(error.message).toBe(
         'A cycle has been detected within the aliases definitions:\n Engine -> TurboEngine -> Engine\n',
       );
@@ -373,7 +372,6 @@ describe('Container', () => {
         useExisting: Engine.name,
       });
     } catch (error: any) {
-      console.log(error.message);
       expect(error.message).toBe(
         'A cycle has been detected within the aliases definitions:\n Engine -> TurboEngine -> Engine\n',
       );
