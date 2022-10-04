@@ -1,22 +1,22 @@
-export function stringify(token: any): string {
-  if (typeof token === 'string') {
-    return token;
+export function toString(value: any): string {
+  if (typeof value === 'string') {
+    return value;
   }
 
-  if (token == null) {
-    return '' + token;
+  if (value == null) {
+    return '' + value;
   }
 
-  if (token.name) {
-    return `${token.name}`;
+  if (value.name) {
+    return `${value.name}`;
   }
 
-  const res = token.toString();
+  const result = value.toString();
 
-  if (res == null) {
-    return '' + res;
+  if (result == null) {
+    return '' + result;
   }
 
-  const newLineIndex = res.indexOf('\n');
-  return newLineIndex === -1 ? res : res.substring(0, newLineIndex);
+  const newLineIndex = result.indexOf('\n');
+  return newLineIndex === -1 ? result : result.substring(0, newLineIndex);
 }

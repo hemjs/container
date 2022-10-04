@@ -1,29 +1,29 @@
-import { stringify } from '../src/utils';
+import { toString } from '../src/utils';
 
 function foo() {}
 
-describe('stringify', () => {
+describe('toString', () => {
   it('should return string when given null', () => {
-    expect(stringify(null)).toEqual('null');
+    expect(toString(null)).toEqual('null');
   });
 
   it('should return same string when given string', () => {
-    expect(stringify('abc')).toEqual('abc');
+    expect(toString('abc')).toEqual('abc');
   });
 
   it('should return string when given symbol', () => {
-    expect(stringify(Symbol('abc'))).toBe('Symbol(abc)');
+    expect(toString(Symbol('abc'))).toBe('Symbol(abc)');
   });
 
   it('should return string when given function', () => {
-    expect(stringify(foo)).toBe('foo');
+    expect(toString(foo)).toBe('foo');
   });
 
   it('should return string when given class', () => {
-    expect(stringify(Date)).toBe('Date');
+    expect(toString(Date)).toBe('Date');
   });
 
   it('should return string when given number', () => {
-    expect(stringify(123)).toBe('123');
+    expect(toString(123)).toBe('123');
   });
 });
