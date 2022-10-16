@@ -1,14 +1,15 @@
-import { NoArgument, Type } from '@hemjs/types';
+import { Type } from '@hemtypes/core';
 import type {
   ClassProvider,
   ExistingProvider,
   Factory,
   FactoryProvider,
   IContainer,
+  NoArgument,
   Provider,
   ProviderToken,
   ValueProvider,
-} from '@hemjs/types/container';
+} from '@hemtypes/container';
 import { isFunction, isUndefined } from '@hemjs/util';
 import { CyclicAliasException } from './exception/cyclic-alias.exception';
 import { InvalidClassException } from './exception/invalid-class.exception';

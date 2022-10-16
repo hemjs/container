@@ -1,4 +1,4 @@
-import { IContainer, Provider } from '@hemjs/types/container';
+import { IContainer, Provider } from '@hemtypes/container';
 import { Container } from '../src/';
 
 class Engine {}

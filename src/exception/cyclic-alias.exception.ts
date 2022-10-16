@@ -1,4 +1,4 @@
-import { ProviderToken } from '@hemjs/types/container';
+import { ProviderToken } from '@hemtypes/container';
 import { CYCLIC_ALIAS_MESSAGE } from '../messages';
 import { toString } from '../utils';
 import { RuntimeException } from './runtime.exception';
