@@ -1,6 +1,6 @@
 {
   "name": "@hemjs/container",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A fast and intuitive dependency injection container",
   "author": "Augustus Kamau",
   "license": "MIT",
