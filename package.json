@@ -24,8 +24,8 @@
     "@hemjs/util": "0.1.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "17.1.2",
-    "@commitlint/config-conventional": "17.1.0",
+    "@commitlint/cli": "17.2.0",
+    "@commitlint/config-conventional": "17.2.0",
     "@hemtypes/container": "0.5.0",
     "@hemtypes/core": "0.5.0",
     "@types/jest": "29.2.0",
