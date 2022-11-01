@@ -29,7 +29,7 @@
     "@hemtypes/container": "0.5.0",
     "@hemtypes/core": "0.5.0",
     "@types/jest": "29.2.1",
-    "@types/node": "18.11.8",
+    "@types/node": "18.11.9",
     "@typescript-eslint/eslint-plugin": "5.42.0",
     "@typescript-eslint/parser": "5.42.0",
     "eslint": "8.26.0",
