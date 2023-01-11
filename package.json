@@ -21,7 +21,7 @@
     "release": "release-it"
   },
   "dependencies": {
-    "@hemjs/util": "0.1.0"
+    "@hemjs/util": "0.1.1"
   },
   "devDependencies": {
     "@commitlint/cli": "17.4.1",
